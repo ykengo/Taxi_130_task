@@ -1,0 +1,25 @@
+taxi
+-
+id int pk
+adress1 str
+adress2 str
+date date
+driver int
+passenger int
+status int
+
+drivers
+-
+id int pk
+car_sign str
+driver str FK >- taxi.driver
+
+passengers
+-
+id int pk
+passenger str FK >- taxi.passenger
+
+statuses
+-
+id int pk
+status str FK >- taxi.status
