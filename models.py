@@ -33,6 +33,9 @@ class Order(Base):
     passenger_rel = relationship("Passenger", back_populates="orders")
     status_rel = relationship("Status", back_populates="orders")
 
+    def __repr__(self):
+        return f"<Order(id = '{self.id}', from = '{self.adress1}', to = '{self.adress2}', date = '{self.date}', driver_id = '{self.driver_rel}', passenger_id = '{self.passenger_rel}', status_id = '{self.status_rel}')>"
+
 
 class Driver(Base):
     __tablename__ = "drivers"
@@ -44,6 +47,8 @@ class Driver(Base):
 
     orders = relationship("Order", back_populates="driver_rel")
 
+    def __repr__(self):
+        return f"<Driver(id = '{self.id}', car sign = '{self.car_sign}', name = '{self.driver}')>"
 
 class Passenger(Base):
     __tablename__ = "passengers"
@@ -54,6 +59,8 @@ class Passenger(Base):
 
     orders = relationship("Order", back_populates="passenger_rel")
 
+    def __repr__(self):
+        return f"<Passenger(id = '{self.id}', passenger='{self.passenger}')>"
 
 class Status(Base):
     __tablename__ = "statuses"
@@ -64,10 +71,12 @@ class Status(Base):
 
     orders = relationship("Order", back_populates="status_rel")
 
+    def __repr__(self):
+        return f"<Status(id = '{self.id}', name ='{self.status}')>"
+
 
 def create_tables(engine):
     Base.metadata.create_all(engine)
-
 
 if __name__ == "__main__":
     engine = create_engine(DATABASE_URL)
