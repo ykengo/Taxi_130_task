@@ -7,10 +7,10 @@ engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
 
 
-def create_status(name : str):
+def create_status(name: str):
     db = SessionLocal()
     try:
-        status = Status(status = name)
+        status = Status(status=name)
         db.add(status)
         db.commit()
         db.refresh(status)
@@ -19,7 +19,8 @@ def create_status(name : str):
     finally:
         db.close()
 
-def update_status(status_id : int, name: str = None):
+
+def update_status(status_id: int, name: str = None):
     db = SessionLocal()
     try:
         status = db.query(Status).filter(Status.id == status_id).first()
@@ -33,7 +34,7 @@ def update_status(status_id : int, name: str = None):
         db.close()
 
 
-def delete_status(status_id : int):
+def delete_status(status_id: int):
     db = SessionLocal()
     try:
         status = db.query(Status).filter(Status.id == status_id).first()
@@ -44,7 +45,8 @@ def delete_status(status_id : int):
     finally:
         db.close()
 
-def get_status(id : int = None, name : str = None):
+
+def get_status(id: int = None, name: str = None):
     db = SessionLocal()
     status = db.query(Status)
     if id:
@@ -55,6 +57,7 @@ def get_status(id : int = None, name : str = None):
         return status.all()
     finally:
         db.close()
+
 
 def get_all_statuses():
     db = SessionLocal()

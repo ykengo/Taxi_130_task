@@ -7,11 +7,10 @@ engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
 
 
-
-def create_passenger(name : str):
+def create_passenger(name: str):
     db = SessionLocal()
     try:
-        psngr = Passenger(passenger = name)
+        psngr = Passenger(passenger=name)
         db.add(psngr)
         db.commit()
         db.refresh(psngr)
@@ -20,7 +19,8 @@ def create_passenger(name : str):
     finally:
         db.close()
 
-def update_passenger(passenger_id : int, name: str = None):
+
+def update_passenger(passenger_id: int, name: str = None):
     db = SessionLocal()
     try:
         psngr = db.query(Passenger).filter(Passenger.id == passenger_id).first()
@@ -34,7 +34,7 @@ def update_passenger(passenger_id : int, name: str = None):
         db.close()
 
 
-def delete_passenger(passenger_id : int):
+def delete_passenger(passenger_id: int):
     db = SessionLocal()
     try:
         psngr = db.query(Passenger).filter(Passenger.id == passenger_id).first()
@@ -45,7 +45,8 @@ def delete_passenger(passenger_id : int):
     finally:
         db.close()
 
-def get_passenger(id : int = None, name : str = None):
+
+def get_passenger(id: int = None, name: str = None):
     db = SessionLocal()
     passenger = db.query(Passenger)
     if id:
@@ -56,6 +57,7 @@ def get_passenger(id : int = None, name : str = None):
         return passenger.all()
     finally:
         db.close()
+
 
 def get_all_passengers():
     db = SessionLocal()

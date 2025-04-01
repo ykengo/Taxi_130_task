@@ -50,6 +50,7 @@ class Driver(Base):
     def __repr__(self):
         return f"<Driver(id = '{self.id}', car sign = '{self.car_sign}', name = '{self.driver}')>"
 
+
 class Passenger(Base):
     __tablename__ = "passengers"
     __table_args__ = {"schema": "kazancev_yakovlev"}
@@ -61,6 +62,7 @@ class Passenger(Base):
 
     def __repr__(self):
         return f"<Passenger(id = '{self.id}', passenger='{self.passenger}')>"
+
 
 class Status(Base):
     __tablename__ = "statuses"
@@ -77,6 +79,7 @@ class Status(Base):
 
 def create_tables(engine):
     Base.metadata.create_all(engine)
+
 
 if __name__ == "__main__":
     engine = create_engine(DATABASE_URL)

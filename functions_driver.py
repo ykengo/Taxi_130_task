@@ -6,10 +6,11 @@ DATABASE_URL = "postgresql+psycopg2://school:School1234*@79.174.88.238:15221/sch
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
 
-def create_driver(sign : str, name : str):
+
+def create_driver(sign: str, name: str):
     db = SessionLocal()
     try:
-        driver = Driver(car_sign = sign, driver = name)
+        driver = Driver(car_sign=sign, driver=name)
         db.add(driver)
         db.commit()
         db.refresh(driver)
@@ -18,7 +19,8 @@ def create_driver(sign : str, name : str):
     finally:
         db.close()
 
-def update_driver(driver_id : int, car_sign : str = None, name : str = None):
+
+def update_driver(driver_id: int, car_sign: str = None, name: str = None):
     db = SessionLocal()
     try:
         driver = db.query(Driver).filter(Driver.id == driver_id).first()
@@ -34,7 +36,8 @@ def update_driver(driver_id : int, car_sign : str = None, name : str = None):
     finally:
         db.close()
 
-def delete_driver(driver_id : int):
+
+def delete_driver(driver_id: int):
     db = SessionLocal()
     try:
         driver = db.query(Driver).filter(Driver.id == driver_id).first()
@@ -46,7 +49,8 @@ def delete_driver(driver_id : int):
     finally:
         db.close()
 
-def get_driver(id : int = None, car_sign : str = None, name : str = None):
+
+def get_driver(id: int = None, car_sign: str = None, name: str = None):
     db = SessionLocal()
     driver = db.query(Driver)
     if id:
@@ -60,8 +64,8 @@ def get_driver(id : int = None, car_sign : str = None, name : str = None):
     finally:
         db.close()
 
+
 def get_all_drivers():
     db = SessionLocal()
     all_drivers = db.query(Driver).all()
     return all_drivers
-

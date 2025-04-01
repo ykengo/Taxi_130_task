@@ -12,11 +12,12 @@ DATABASE_URL = "postgresql+psycopg2://school:School1234*@79.174.88.238:15221/sch
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
 
-def create_order(adress1 : str, adress2 : str, driver : str, passenger : str, status : str):
+
+def create_order(adress1: str, adress2: str, driver: str, passenger: str, status: str):
     try:
         driver = int(driver)
     except ValueError:
-        driver = get_driver(None,driver)[0].id
+        driver = get_driver(None, driver)[0].id
     try:
         passenger = int(passenger)
     except ValueError:
@@ -28,7 +29,14 @@ def create_order(adress1 : str, adress2 : str, driver : str, passenger : str, st
     current_datetime = datetime.datetime.now()
     db = SessionLocal()
     try:
-        order = Order(adress1 = adress1, adress2 = adress2, date = current_datetime, driver = driver, passenger = passenger, status = status)
+        order = Order(
+            adress1=adress1,
+            adress2=adress2,
+            date=current_datetime,
+            driver=driver,
+            passenger=passenger,
+            status=status,
+        )
         db.add(order)
         db.commit()
         db.refresh(order)
@@ -38,11 +46,18 @@ def create_order(adress1 : str, adress2 : str, driver : str, passenger : str, st
         db.close()
 
 
-def update_order(order_id : int, adress1 : str = None, adress2 : str = None, driver : str = None, passenger : str = None, status : str = None):
+def update_order(
+    order_id: int,
+    adress1: str = None,
+    adress2: str = None,
+    driver: str = None,
+    passenger: str = None,
+    status: str = None,
+):
     try:
         driver = int(driver)
     except ValueError:
-        driver = get_driver(None,driver)[0].id
+        driver = get_driver(None, driver)[0].id
     try:
         passenger = int(passenger)
     except ValueError:
@@ -71,7 +86,8 @@ def update_order(order_id : int, adress1 : str = None, adress2 : str = None, dri
     finally:
         db.close()
 
-def delete_order(order_id : int):
+
+def delete_order(order_id: int):
     db = SessionLocal()
     try:
         order = db.query(Order).filter(Order.id == order_id).first()
@@ -82,12 +98,20 @@ def delete_order(order_id : int):
     finally:
         db.close()
 
+
 def get_all_orders():
     db = SessionLocal()
     all_orders = db.query(Order).all()
     return all_orders
 
-def get_order(adress1 : str = None, adress2 : str = None, driver : str = None, passenger : str = None, status : str = None):
+
+def get_order(
+    adress1: str = None,
+    adress2: str = None,
+    driver: str = None,
+    passenger: str = None,
+    status: str = None,
+):
     db = SessionLocal()
     try:
         driver = int(driver)
@@ -108,7 +132,7 @@ def get_order(adress1 : str = None, adress2 : str = None, driver : str = None, p
         order.filter(Order.adress2 == adress2)
     if driver:
         order.filter(Order.driver == driver)
-    if (passenger):
+    if passenger:
         order.filter(Order.passenger == passenger)
     if status:
         order.filter(Order.status == status)
